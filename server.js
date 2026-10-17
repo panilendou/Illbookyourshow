@@ -26,6 +26,12 @@ app.post('/storeInfo', (req, res) => {
     });
 });
 
+// Serve the index.html file
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+});
+
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
+
