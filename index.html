@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Theatre Information</title>
+</head>
+<body>
+    <h1>Enter Movie and Theatre Information</h1>
+    <form id="infoForm">
+        <label for="movieName">Movie Name:</label>
+        <input type="text" id="movieName" name="movieName" required>
+        <br><br>
+        <label for="theatreName">Theatre Name:</label>
+        <input type="text" id="theatreName" name="theatreName" required>
+        <br><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('infoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const movieName = document.getElementById('movieName').value;
+            const theatreName = document.getElementById('theatreName').value;
+
+            fetch('/storeInfo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ movieName, theatreName })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to store information.');
+            });
+        });
+    </script>
+</body>
+</html>
